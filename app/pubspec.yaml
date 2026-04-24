@@ -1,5 +1,5 @@
-name: untitled
-description: "A new Flutter project."
+name: sistema_control_agua
+description: "Sistema de Control de Agua Potable - Frontend"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.11.5
+  sdk: ^3.5.0
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,20 +31,40 @@ dependencies:
   flutter:
     sdk: flutter
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # UI & Design
   cupertino_icons: ^1.0.8
+  google_fonts: ^6.2.1
+  flutter_animate: ^4.5.2
+  lucide_icons: ^0.257.0
+
+  # State Management & DI
+  flutter_bloc: ^8.1.6
+  get_it: ^7.7.0
+
+  # API & Networking
+  dio: ^5.7.0
+  pretty_dio_logger: ^1.4.0
+
+  # Storage & Offline
+  drift: ^2.20.0
+  sqlite3_flutter_libs: ^0.5.24
+  shared_preferences: ^2.3.2
+
+  # GPS & Utils
+  geolocator: ^13.0.1
+  google_maps_flutter: ^2.10.0
+  intl: ^0.19.0
+  logger: ^2.4.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
-  flutter_lints: ^6.0.0
+  # Code Generation
+  build_runner: ^2.4.13
+  drift_dev: ^2.20.0
+
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

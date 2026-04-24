@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vivienda extends Model
 {
-    protected $fillable = ['user_id', 'zone_id', 'tarifa_id', 'direccion', 'codigo'];
+    protected $fillable = ['user_id', 'zone_id', 'tarifa_id', 'direccion', 'codigo', 'latitude', 'longitude'];
 
     public function socio()
     {
