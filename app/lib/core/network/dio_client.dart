@@ -11,6 +11,9 @@ class DioClient {
       BaseOptions(
         baseUrl: AppConstants.apiBaseUrl,
         contentType: 'application/json',
+        headers: {
+          'Accept': 'application/json',
+        },
         responseType: ResponseType.json,
         connectTimeout: const Duration(seconds: 15),
         receiveTimeout: const Duration(seconds: 15),
@@ -30,13 +33,13 @@ class DioClient {
       ),
     );
 
-    dio.interceptors.add(PrettyDioLogger(
+    /* dio.interceptors.add(PrettyDioLogger(
       requestHeader: true,
       requestBody: true,
       responseBody: true,
       responseHeader: false,
       error: true,
       compact: true,
-    ));
+    )); */
   }
 }

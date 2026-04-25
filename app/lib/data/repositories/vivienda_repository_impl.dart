@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import '../../../core/network/dio_client.dart';
-import '../../../domain/entities/vivienda_entity.dart';
-import '../../../domain/repositories/vivienda_repository.dart';
-import '../../models/vivienda_model.dart';
+import 'package:sistema_control_agua/core/network/dio_client.dart';
+import 'package:sistema_control_agua/domain/entities/vivienda_entity.dart';
+import 'package:sistema_control_agua/domain/repositories/vivienda_repository.dart';
+import 'package:sistema_control_agua/data/models/vivienda_model.dart';
 
 class ViviendaRepositoryImpl implements ViviendaRepository {
   final DioClient dioClient;
@@ -20,7 +20,10 @@ class ViviendaRepositoryImpl implements ViviendaRepository {
       }
       return [];
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Error al cargar viviendas');
+      if (e.response?.data is Map) {
+        throw Exception(e.response?.data['message'] ?? 'Error al cargar viviendas');
+      }
+      throw Exception('Error del servidor (${e.response?.statusCode ?? "Error al cargar viviendas"})');
     }
   }
 
@@ -37,7 +40,25 @@ class ViviendaRepositoryImpl implements ViviendaRepository {
       }
       throw Exception('Error al actualizar GPS');
     } on DioException catch (e) {
-      throw Exception(e.response?.data['message'] ?? 'Error de conexión');
+      if (e.response?.data is Map) {
+        throw Exception(e.response?.data['message'] ?? 'Error de conexión');
+      }
+      throw Exception('Error del servidor (${e.response?.statusCode ?? "Error de conexión"})');
     }
+  }
+
+  @override
+  Future<void> createVivienda(Map<String, dynamic> data) async {
+    await dioClient.dio.post('/viviendas', data: data);
+  }
+
+  @override
+  Future<void> updateVivienda(int id, Map<String, dynamic> data) async {
+    await dioClient.dio.put('/viviendas/$id', data: data);
+  }
+
+  @override
+  Future<void> deleteVivienda(int id) async {
+    await dioClient.dio.delete('/viviendas/$id');
   }
 }

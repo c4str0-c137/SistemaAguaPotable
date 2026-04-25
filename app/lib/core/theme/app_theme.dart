@@ -13,6 +13,9 @@ class AppTheme {
       error: AppColors.error,
     ),
     scaffoldBackgroundColor: AppColors.background,
+    hoverColor: Colors.transparent,
+    highlightColor: Colors.transparent,
+    splashFactory: NoSplash.splashFactory,
     textTheme: GoogleFonts.outfitTextTheme().copyWith(
       displayLarge: GoogleFonts.outfit(
         color: AppColors.textPrimary,

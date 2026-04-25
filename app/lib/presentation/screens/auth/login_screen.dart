@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lucide_icons/lucide_icons.dart';
-import '../../../core/theme/app_colors.dart';
-import '../../blocs/auth/auth_bloc.dart';
-import '../../blocs/auth/auth_event.dart';
-import '../../blocs/auth/auth_state.dart';
+import 'package:sistema_control_agua/core/theme/app_colors.dart';
+import 'package:sistema_control_agua/presentation/blocs/auth/auth_bloc.dart';
+import 'package:sistema_control_agua/presentation/blocs/auth/auth_event.dart';
+import 'package:sistema_control_agua/presentation/blocs/auth/auth_state.dart';
+import 'package:sistema_control_agua/presentation/screens/home/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,8 +26,15 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthError) {
+          print('LoginScreen: Error recibido: ${state.message}');
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message), backgroundColor: AppColors.error),
+            SnackBar(
+              content: Text(state.message), 
+              backgroundColor: AppColors.error,
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 4),
+            ),
           );
         }
         if (state is Authenticated) {
@@ -68,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Icon(LucideIcons.droplets, color: Colors.white, size: 80)
-                          .animate().scale(duration: 600.ms, curve: Curves.backOut),
+                          .animate().scale(duration: 600.ms, curve: Curves.easeOutBack),
                       
                       const SizedBox(height: 16),
                       

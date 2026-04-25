@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('detalle_pagos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pago_id')->constrained('pagos')->onDelete('cascade');
-            $table->enum('tipo', ['consumo', 'multa', 'aporte']);
+            $table->enum('tipo', ['consumo', 'multa', 'aporte', 'cargo_fijo']);
             $table->decimal('monto', 10, 2);
             $table->string('descripcion');
             $table->timestamps();

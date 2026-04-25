@@ -6,16 +6,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vivienda extends Model
 {
-    protected $fillable = ['user_id', 'zone_id', 'tarifa_id', 'direccion', 'codigo', 'latitude', 'longitude'];
+    protected $fillable = [
+        'user_id', 
+        'zone_id', 
+        'tarifa_id', 
+        'direccion', 
+        'codigo',
+        'latitude',
+        'longitude',
+        'alcantarillado',
+        'tipo_lectura',
+        'lectura_inicial'
+    ];
 
     public function socio()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function zone()
+    public function zona()
     {
-        return $this->belongsTo(Zone::class);
+        return $this->belongsTo(Zone::class, 'zone_id');
     }
 
     public function tarifa()

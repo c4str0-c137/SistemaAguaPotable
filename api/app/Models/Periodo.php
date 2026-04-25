@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Periodo extends Model
 {
-    protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'estado'];
+    protected $fillable = ['nombre', 'fecha_inicio', 'fecha_fin', 'estado', 'gestion'];
 
     public function lecturas()
     {

@@ -1,4 +1,4 @@
-import '../../../../domain/entities/vivienda_entity.dart';
+import 'package:sistema_control_agua/domain/entities/vivienda_entity.dart';
 
 abstract class ViviendaState {}
 

@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../domain/repositories/auth_repository.dart';
+import 'package:sistema_control_agua/domain/repositories/auth_repository.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
 
@@ -23,15 +23,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onLoginRequested(LoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
+    print('AuthBloc: Iniciando login para ${event.email}');
     try {
       final user = await authRepository.login(event.email, event.password);
       if (user != null) {
+        print('AuthBloc: Login exitoso para ${user.name}');
         emit(Authenticated(user: user));
       } else {
-        emit(AuthError(message: 'Login fallido'));
+        print('AuthBloc: Login fallido (user null)');
+        emit(AuthError(message: 'Login fallido: Credenciales incorrectas'));
       }
     } catch (e) {
-      emit(AuthError(message: e.toString()));
+      print('AuthBloc: Error en login: $e');
+      String msg = e.toString();
+      if (msg.contains('Exception: ')) msg = msg.replaceAll('Exception: ', '');
+      emit(AuthError(message: 'Error: $msg'));
     }
   }
 
