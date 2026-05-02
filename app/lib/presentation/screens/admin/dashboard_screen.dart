@@ -43,77 +43,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
               child: SingleChildScrollView(
                 child: Container(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width,
-                  ),
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    LayoutBuilder(
-                      builder: (context, headerConstraints) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Dashboard',
-                                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                                  const SizedBox(height: 4),
-                                  const Text('Resumen ejecutivo del sistema de agua.',
-                                      style: TextStyle(color: AppColors.textSecondary)),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            SizedBox(
-                              height: 40,
-                              child: FilledButton.icon(
-                                onPressed: () => ReciboService.imprimirReporteMensual(r),
-                                icon: const Icon(LucideIcons.fileOutput, size: 18),
-                                label: const Text('Exportar Reporte'),
-                                style: FilledButton.styleFrom(
-                                  backgroundColor: AppColors.primary,
-                                  foregroundColor: Colors.white,
-                                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      }
-                    ),
-                    const SizedBox(height: 24),
-
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return Column(
-                          children: [
-                            Row(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Expanded(child: _buildMetricCard('Recaudado Mes', 'Bs. ${r['monto_del_mes']}',
-                                    LucideIcons.badgeDollarSign, AppColors.success)),
-                                const SizedBox(width: 16),
-                                Expanded(child: _buildMetricCard('Pagos Mes', '${r['pagos_del_mes']}',
-                                    LucideIcons.wallet, AppColors.primary)),
+                                const Text('Dashboard',
+                                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                                const SizedBox(height: 4),
+                                const Text('Resumen ejecutivo del sistema de agua.',
+                                    style: TextStyle(color: AppColors.textSecondary)),
                               ],
                             ),
-                            const SizedBox(height: 16),
-                            Row(
-                              children: [
-                                Expanded(child: _buildMetricCard('Pendientes', '${r['viviendas_pendientes']}',
-                                    LucideIcons.alertCircle, AppColors.warning)),
-                                const SizedBox(width: 16),
-                                Expanded(child: _buildMetricCard('Total Viviendas', '${r['total_viviendas']}',
-                                    LucideIcons.home, AppColors.textSecondary)),
-                              ],
+                          ),
+                          const SizedBox(width: 16),
+                          SizedBox(
+                            height: 40,
+                            child: FilledButton.icon(
+                              onPressed: () => ReciboService.imprimirReporteMensual(r),
+                              icon: const Icon(LucideIcons.fileOutput, size: 18),
+                              label: const Text('Exportar Reporte'),
+                              style: FilledButton.styleFrom(
+                                backgroundColor: AppColors.primary,
+                                foregroundColor: Colors.white,
+                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                              ),
                             ),
-                          ],
-                        );
-                      }
-                    ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 24),
+                      Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(child: _buildMetricCard('Recaudado Mes', 'Bs. ${r['monto_del_mes']}',
+                                  LucideIcons.badgeDollarSign, AppColors.success)),
+                              const SizedBox(width: 16),
+                              Expanded(child: _buildMetricCard('Pagos Mes', '${r['pagos_del_mes']}',
+                                  LucideIcons.wallet, AppColors.primary)),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(child: _buildMetricCard('Pendientes', '${r['viviendas_pendientes']}',
+                                  LucideIcons.alertCircle, AppColors.warning)),
+                              const SizedBox(width: 16),
+                              Expanded(child: _buildMetricCard('Total Viviendas', '${r['total_viviendas']}',
+                                  LucideIcons.home, AppColors.textSecondary)),
+                            ],
+                          ),
+                        ],
+                      ),
 
                     const SizedBox(height: 32),
                     const Text('Estado de Cobranza',
