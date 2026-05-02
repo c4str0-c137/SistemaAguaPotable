@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     final user = state.user;
     final isMobile = MediaQuery.of(context).size.width < 800;
-    final destinations = _getDestinations(user);
+    final navItems = _getNavItems(user);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   width: 80,
                   height: double.infinity,
-                  child: _buildSidebar(user, destinations),
+                  child: _buildSidebar(user, navItems),
                 ),
               Expanded(
                 child: Container(
@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  Widget _buildSidebar(user, List<NavigationRailDestination> destinations) {
+  Widget _buildSidebar(user, List<Map<String, dynamic>> items) {
     return Container(
       width: 80,
       decoration: BoxDecoration(
@@ -111,13 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(height: 48),
           Expanded(
             child: Column(
-              children: List.generate(destinations.length, (idx) {
-                final isSelected = _selectedIndex == idx;
-                final dest = destinations[idx];
+              children: items.map((item) {
+                final targetIndex = item['index'] as int;
+                final isSelected = _selectedIndex == targetIndex;
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4),
                   child: InkWell(
-                    onTap: () => setState(() => _selectedIndex = idx),
+                    onTap: () => setState(() => _selectedIndex = targetIndex),
                     child: Container(
                       width: 56,
                       height: 56,
@@ -126,14 +126,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Icon(
-                        (dest.icon as Icon).icon,
+                        item['icon'] as IconData,
                         color: isSelected ? AppColors.primary : AppColors.textSecondary,
                         size: 24,
                       ),
                     ),
                   ),
                 );
-              }),
+              }).toList(),
             ),
           ),
           IconButton(
