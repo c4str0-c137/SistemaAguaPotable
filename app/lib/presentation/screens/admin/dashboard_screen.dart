@@ -42,35 +42,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 context.read<PagoBloc>().add(GetResumenEvent());
               },
               child: SingleChildScrollView(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Container(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.of(context).size.width,
+                  ),
+                  padding: const EdgeInsets.all(24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text('Dashboard',
-                                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                              const SizedBox(height: 4),
-                              const Text('Resumen ejecutivo del sistema de agua.',
-                                  style: TextStyle(color: AppColors.textSecondary)),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        FilledButton.icon(
-                          onPressed: () => ReciboService.imprimirReporteMensual(r),
-                          icon: const Icon(LucideIcons.fileOutput, size: 18),
-                          label: const Text('Exportar Reporte'),
-                          style: FilledButton.styleFrom(
-                            backgroundColor: AppColors.primary,
-                            foregroundColor: Colors.white,
-                          ),
-                        ),
-                      ],
+                    LayoutBuilder(
+                      builder: (context, headerConstraints) {
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text('Dashboard',
+                                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                                  const SizedBox(height: 4),
+                                  const Text('Resumen ejecutivo del sistema de agua.',
+                                      style: TextStyle(color: AppColors.textSecondary)),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            SizedBox(
+                              height: 40,
+                              child: FilledButton.icon(
+                                onPressed: () => ReciboService.imprimirReporteMensual(r),
+                                icon: const Icon(LucideIcons.fileOutput, size: 18),
+                                label: const Text('Exportar Reporte'),
+                                style: FilledButton.styleFrom(
+                                  backgroundColor: AppColors.primary,
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      }
                     ),
                     const SizedBox(height: 24),
 
@@ -121,8 +134,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   ],
                 ),
               ),
-            );
-          }
+            ),
+          );
+        }
 
           return const SizedBox.shrink();
         },
